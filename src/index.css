@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    @apply duration-100 transition-all;
+  }
+  .clickedIcon {
+    @apply text-white;
+  }
+  .clickedSpan {
+    @apply bg-red-500;
+  }
+  ol {
+    @apply grid grid-cols-1 gap-0.5 divide-y-2 border-2 border-slate-300 rounded-md p-2 shadow-md shadow-black;
+  }
+  li {
+    @apply flex items-center justify-between;
+  }
+}
