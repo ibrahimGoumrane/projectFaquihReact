@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/searchBar";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   return (
     <div className="max-w-[90vw] w-screen mx-auto flex-1 flex flex-col px-[100px]">
       <div className="max-w-screen-md mt-[15vh] flex-1 flex flex-col gap-12 items-start text-left justify-start ">
@@ -15,15 +17,18 @@ const HomePage = () => {
           </p>
         </div>
         <div className="mt-6 w-full ">
-          <div className="mt-6 w-full ">
-            <SearchBar />
-          </div>
           <div className="mt-6 flex space-x-4 ">
-            <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow-md transition duration-300 hover:shadow-lg">
+            <button
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow-md transition duration-300 hover:shadow-lg"
+              onClick={() => navigate("/menu")}
+            >
               Menu
             </button>
-            <button className="bg-white hover:bg-gray-100 text-red-600 font-semibold px-6 py-2 rounded-md shadow-md border border-red-600 transition duration-300 hover:shadow-lg">
-              Watch our Popular Dishes
+            <button
+              className="bg-white hover:bg-gray-100 text-red-600 font-semibold px-6 py-2 rounded-md shadow-md border border-red-600 transition duration-300 hover:shadow-lg"
+              onClick={() => navigate("/likedMenu")}
+            >
+              Go to Your prefered dishes
             </button>
           </div>
         </div>

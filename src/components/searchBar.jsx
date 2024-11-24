@@ -1,26 +1,29 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { options } from "../api/credentials";
 import { setRecipes } from "../storage/recipeSlice";
-import { useRef } from "react";
 function urlSearch(query) {
   const item = query.replace(/ /g, "%20");
   return `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=${item}&diet=vegetarian%7CGluten%20Free%7CKetogenic%7CPaleo&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeInstructions=false&addRecipeNutrition=true&maxReadyTime=45&ignorePantry=true&sort=max-used-ingredients&offset=0&number=4`;
 }
 
-const SearchBar = () => {
+const SearchBar = ({ setIsLoading, isLoading, isHomePage }) => {
   const inputRef = useRef(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSearch = async (e) => {
+    if (isHomePage) {
+      navigate("/menu");
+    }
     e.stopPropagation();
     const query = inputRef.current.value;
-    console.log(query);
     const url = urlSearch(query);
-    console.log(url);
     try {
+      setIsLoading(true);
       const response = await fetch(url, options);
       const result = await response.json();
-      const titles = result.results.map((recipe) => ({ title: recipe.title }));
-      console.log(titles);
+      setIsLoading(false);
       dispatch(setRecipes(result.results));
     } catch (error) {
       console.error(error);
@@ -66,6 +69,7 @@ const SearchBar = () => {
         <button
           type="submit"
           onClick={handleSearch}
+          disabled={isLoading}
           className="text-white absolute end-2.5 bottom-2.5 bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2"
         >
           Search
